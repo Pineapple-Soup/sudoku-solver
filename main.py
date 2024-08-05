@@ -1,6 +1,6 @@
 import sys
 
-def get_input():
+def get_input() -> str:
     try:
         input = sys.argv[1]
         if len(input) != 81:
@@ -18,7 +18,7 @@ def get_input():
         print("Invalid PUZZLE_DATA. Puzzle can only contain digits 1-9")
         exit(1)
 
-def main():
+def main() -> None:
     input = get_input()
     print(input)
 
