@@ -53,11 +53,17 @@ def solve(puzzle) -> bool:
             puzzle[row][col] = '0'
     return False
 
+def print_puzzle(puzzle) -> None:
+    for r in puzzle:
+        for c in r:
+            print(c, end=' ')
+        print()
+
 def main() -> None:
     input = get_input()
     puzzle = parse_input(input)
     solve(puzzle)
-    print(puzzle)
+    print_puzzle(puzzle)
 
 
 if __name__ == "__main__":
