@@ -30,13 +30,13 @@ def find_next_empty_cell(puzzle: list[list[str]]) -> list[int]:
     return [-1, -1]
 
 def check_square(puzzle: list[list[str]], r: int, c: int, num: int) -> bool:
-    if puzzle[r].count(num):
+    if puzzle[r].count(str(num)) > 0:
         return False
-    if [row[c] for row in puzzle].count(num):
+    if [row[c] for row in puzzle].count(str(num)):
         return False
     for i in range(3):
         for j in range(3):
-            if puzzle[i+((r//3)*3)][j+((c//3)*3)] == num:
+            if puzzle[i+((r//3)*3)][j+((c//3)*3)] == str(num):
                 return False
     return True
 
