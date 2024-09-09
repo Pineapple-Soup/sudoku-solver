@@ -40,11 +40,24 @@ def check_square(puzzle: list[list[str]], r: int, c: int, num: int) -> bool:
                 return False
     return True
 
+def solve(puzzle) -> bool:
+    pos = find_next_empty_cell(puzzle)
+    if pos == [-1, -1]:
+        return True
+    row, col = pos[0], pos[1]
+    for num in range(1, 10):
+        if check_square(puzzle, row, col, num):
+            puzzle[row][col] = str(num)
+            if solve(puzzle):
+                return True
+            puzzle[row][col] = '0'
+    return False
+
 def main() -> None:
     input = get_input()
-    print(input)
     puzzle = parse_input(input)
-    print(find_next_empty_cell(puzzle))
+    solve(puzzle)
+    print(puzzle)
 
 
 if __name__ == "__main__":
