@@ -1,18 +1,20 @@
-import sys
+import argparse
 
 def get_input() -> str:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-p", help="81 digit string representing a sudoku puzzle", dest="puzzle_data", type=str)
+    args = parser.parse_args()
     try:
-        input = sys.argv[1]
+        input = args.puzzle_data
+        if input is None:
+            raise NotImplementedError
         if len(input) != 81:
             raise SyntaxError
         if not input.isdigit():
             raise ValueError
         return input
-    except IndexError:
-        print("Usage: solve.py PUZZLE_DATA")
-        exit(1)
     except SyntaxError:
-        print("Invalid PUZZLE_DATA. Must be 81 Characters in length")
+        print("Invalid PUZZLE_DATA. Must be exactly 81 characters in length")
         exit(1)
     except ValueError:
         print("Invalid PUZZLE_DATA. Puzzle can only contain digits 1-9")
