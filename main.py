@@ -16,7 +16,7 @@ def get_gui_input():
     window.title("Sudoku Solver")
     window.geometry("600x600")
     window.resizable(width=False, height=False)
-    window.configure(padx=10, pady=10)
+    window.configure(padx=10, pady=10, background='#ffc300')
 
     entries = []
     for row in range(9):
@@ -24,7 +24,7 @@ def get_gui_input():
         puzzle_row = []
         for col in range(9):
             window.grid_columnconfigure(col, weight=1)
-            entry = tk.Entry(window, relief='solid', bd=1, font=('Arial', 18), justify='center', validate="key", vcmd=(window.register(validate_input), '%P'))
+            entry = tk.Entry(window, bg='#ffc86c', fg='black', highlightthickness='0', font=('Arial', 18), justify='center', validate="key", vcmd=(window.register(validate_input), '%P'))
             entry.grid(row=row, column=col, sticky='NSEW')
             entry.insert(0, tk.END)
             puzzle_row.append(entry)
