@@ -45,8 +45,12 @@ def check_square(puzzle: list[list[str]], r: int, c: int, num: int) -> bool:
 def validate_puzzle(puzzle: list[list[str]]) -> bool:
     for r in range(0, len(puzzle)):
         for c in range(0, len(puzzle[r])):
-            if puzzle[r][c] != '0' and not check_square(puzzle, r, c, puzzle[r][c]):
-                return False
+            if puzzle[r][c] != '0':
+                n = puzzle[r][c]
+                puzzle[r][c] = '0'
+                if not check_square(puzzle, r, c, n):
+                    return False
+                puzzle[r][c] = n
     return True
 
 def solve(puzzle) -> bool:
