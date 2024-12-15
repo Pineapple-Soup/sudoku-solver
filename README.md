@@ -1,7 +1,8 @@
 # sudoku-solver
 
 This project provides a Sudoku Solver that can be run via the command line (CLI) or with a graphical user interface (GUI).
-  <img width="594" alt="GUI Example" src="https://github.com/user-attachments/assets/d8143499-783a-494b-82ea-e28b4e019ec3" />
+
+<img width="594" alt="GUI Example" src="https://github.com/user-attachments/assets/d8143499-783a-494b-82ea-e28b4e019ec3" />
 
 ## Requirements
 - Python 3.x
