@@ -24,15 +24,15 @@ def get_gui_input():
         puzzle_row = []
         for col in range(9):
             window.grid_columnconfigure(col, weight=1)
-            entry = tk.Entry(window, font=('Arial', 18), justify='center', validate="key", vcmd=(window.register(validate_input), '%P'))
+            entry = tk.Entry(window, relief='solid', bd=1, font=('Arial', 18), justify='center', validate="key", vcmd=(window.register(validate_input), '%P'))
             entry.grid(row=row, column=col, sticky='NSEW')
             entry.insert(0, tk.END)
             puzzle_row.append(entry)
         entries.append(puzzle_row)
     
-    clear_button = tk.Button(window, text="Clear", width=6, command=lambda: [[entry.delete(0, tk.END) for entry in row] for row in entries])
-    solve_button = tk.Button(window, text="Invalid Puzzle", width=6, state=tk.DISABLED, command=lambda: handle_puzzle([[entry.get() or "0" for entry in row] for row in entries], entries=entries))
-    quit_button = tk.Button(window, text="Quit", width=6, command=window.destroy)
+    clear_button = tk.Button(window, text="Clear", font=('Arial', 18), width=6, command=lambda: [[entry.delete(0, tk.END) for entry in row] for row in entries])
+    solve_button = tk.Button(window, text="Invalid Puzzle", font=('Arial', 18), width=6, state=tk.DISABLED, command=lambda: handle_puzzle([[entry.get() or "0" for entry in row] for row in entries], entries=entries))
+    quit_button = tk.Button(window, text="Quit", font=('Arial', 18), width=6, command=window.destroy)
 
     for i in range(9, 12):
         window.grid_rowconfigure(i, weight=1)
