@@ -139,7 +139,6 @@ def handle_puzzle(puzzle, entries=None) -> None:
 def main() -> None:
     input = get_input()
     puzzle = parse_input(input)
-    print_puzzle(puzzle)
     handle_puzzle(puzzle)
 
 
