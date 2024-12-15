@@ -42,6 +42,13 @@ def check_square(puzzle: list[list[str]], r: int, c: int, num: int) -> bool:
                 return False
     return True
 
+def validate_puzzle(puzzle: list[list[str]]) -> bool:
+    for r in range(0, len(puzzle)):
+        for c in range(0, len(puzzle[r])):
+            if puzzle[r][c] != '0' and not check_square(puzzle, r, c, puzzle[r][c]):
+                return False
+    return True
+
 def solve(puzzle) -> bool:
     pos = find_next_empty_cell(puzzle)
     if pos == [-1, -1]:
@@ -64,8 +71,13 @@ def print_puzzle(puzzle) -> None:
 def main() -> None:
     input = get_input()
     puzzle = parse_input(input)
-    solve(puzzle)
-    print_puzzle(puzzle)
+    if not validate_puzzle(puzzle):
+        print("Invalid puzzle")
+        exit(1)
+    if solve(puzzle):
+        print_puzzle(puzzle)
+    else:
+        print("No solution exists")
 
 
 if __name__ == "__main__":
