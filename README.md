@@ -14,7 +14,7 @@ No additional dependencies are required
 Python 3.x is required for use. The GUI is built on the `tkinter` module, and the CLI leverages `argparse`, both of which should be installed by default with Python.
 > [!TIP]
 > If you don't have python installed, you can install it [here](https://www.python.org/downloads/)
-1. Clone the repository or download the script
+1. [Download the script](https://github.com/Pineapple-Soup/sudoku-solver/releases) or clone the repository:
 ```bash
 git clone https://github.com/Pineapple-Soup/sudoku-solver.git
 ```
