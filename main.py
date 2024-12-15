@@ -4,12 +4,20 @@ import tkinter as tk
 def validate_input(val) -> bool:
     return val == "" or (val.isdigit() and 1 <= int(val) <= 9)
 
+def on_change(entries, solve_button):
+    puzzle_input = [[entry.get() or "0" for entry in row] for row in entries]
+    if validate_puzzle(puzzle_input):
+        solve_button.config(state=tk.NORMAL, text="Solve")  # Enable solve button if valid
+    else:
+        solve_button.config(state=tk.DISABLED, text="Invalid Puzzle")  # Disable solve button if invalid
+
 def get_gui_input():
     window = tk.Tk()
     window.title("Sudoku Solver")
     window.geometry("600x600")
     window.resizable(width=False, height=False)
     window.configure(padx=10, pady=10)
+
     entries = []
     for row in range(9):
         window.grid_rowconfigure(row, weight=1)
@@ -23,13 +31,19 @@ def get_gui_input():
         entries.append(puzzle_row)
     
     clear_button = tk.Button(window, text="Clear", width=6, command=lambda: [[entry.delete(0, tk.END) for entry in row] for row in entries])
-    solve_button = tk.Button(window, text="Solve", width=6, command=lambda: handle_puzzle([[entry.get() or "0" for entry in row] for row in entries], entries=entries))
+    solve_button = tk.Button(window, text="Invalid Puzzle", width=6, state=tk.DISABLED, command=lambda: handle_puzzle([[entry.get() or "0" for entry in row] for row in entries], entries=entries))
     quit_button = tk.Button(window, text="Quit", width=6, command=window.destroy)
+
     for i in range(9, 12):
         window.grid_rowconfigure(i, weight=1)
     clear_button.grid(row=10, column=0, columnspan=3, sticky='NSEW')
     solve_button.grid(row=10, column=3, columnspan=3, sticky='NSEW')
     quit_button.grid(row=10, column=6, columnspan=3, sticky='NSEW')
+
+    for row in entries:
+        for entry in row:
+            entry.bind("<KeyRelease>", lambda change_event, entries=entries, solve_button=solve_button: on_change(entries, solve_button))
+
     window.mainloop()
 
 
