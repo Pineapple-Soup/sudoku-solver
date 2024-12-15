@@ -68,9 +68,7 @@ def print_puzzle(puzzle) -> None:
             print(c, end=' ')
         print()
 
-def main() -> None:
-    input = get_input()
-    puzzle = parse_input(input)
+def handle_puzzle(puzzle, entries=None) -> None:
     if not validate_puzzle(puzzle):
         print("Invalid puzzle")
         exit(1)
@@ -78,6 +76,13 @@ def main() -> None:
         print_puzzle(puzzle)
     else:
         print("No solution exists")
+        exit(1)
+
+def main() -> None:
+    input = get_input()
+    puzzle = parse_input(input)
+    print_puzzle(puzzle)
+    handle_puzzle(puzzle)
 
 
 if __name__ == "__main__":
