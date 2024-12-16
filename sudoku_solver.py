@@ -16,28 +16,50 @@ def get_gui_input():
     window.title("Sudoku Solver")
     window.geometry("600x600")
     window.resizable(width=False, height=False)
-    window.configure(padx=10, pady=10, background='#ffc300')
+    window.configure(padx=20, pady=20, background='#ffc300')
+
     for i in range(12):
         window.grid_rowconfigure(i, weight=1)
         window.grid_columnconfigure(i, weight=1)
+
+    entry_size = 50
+    entry_padding = 3
+    canvas_height = 478
+    canvas_width = 560
+    vline = canvas_width/9
+    hline = canvas_height/9
+    canvas = tk.Canvas(window, width=canvas_width, height=canvas_height, bg='#ffc86c')
+    canvas.place(x=0, y=0)
+
+    for i in range(1, 9):
+        if i % 3 == 0:
+            # Thick vertical line
+            canvas.create_line(i * vline, 0, i * vline, canvas_height+entry_padding, width=3, fill='#6d3b2c') 
+            # Thick horizontal line
+            canvas.create_line(0, i * hline, canvas_width+entry_padding, i * hline, width=3, fill='#6d3b2c')
+        else:
+            # Thin vertical line
+            canvas.create_line(i * vline, 0, i * vline, canvas_height+entry_padding, width=1, fill='#6d3b2c')  
+            # Thin horizontal line
+            canvas.create_line(0, i * hline, canvas_width+entry_padding, i * hline, width=1, fill='#6d3b2c')
 
     entries = []
     for row in range(9):
         puzzle_row = []
         for col in range(9):
-            entry = tk.Entry(window, bg='#ffc86c', fg='black', highlightthickness='0', font=('Arial', 18), justify='center', validate="key", vcmd=(window.register(validate_input), '%P'))
-            entry.grid(row=row, column=col, sticky='NSEW')
+            entry = tk.Entry(window, relief='flat', bg='#ffc86c', fg='black', highlightthickness='0', font=('Arial', 18), justify='center', validate="key", vcmd=(window.register(validate_input), '%P'))
+            entry.grid(row=row, column=col, sticky='NSEW', padx=entry_padding, pady=entry_padding)
             entry.insert(0, tk.END)
             puzzle_row.append(entry)
         entries.append(puzzle_row)
+
+    clear_button = tk.Button(window, text="Clear", font=('Arial', 18), command=lambda: [[entry.delete(0, tk.END) for entry in row] for row in entries])
+    solve_button = tk.Button(window, text="Invalid Puzzle", font=('Arial', 18), state=tk.DISABLED, command=lambda: handle_puzzle([[entry.get() or "0" for entry in row] for row in entries], entries=entries))
+    quit_button = tk.Button(window, text="Quit", font=('Arial', 18), command=window.destroy)
     
-    clear_button = tk.Button(window, text="Clear", font=('Arial', 18), width=6, command=lambda: [[entry.delete(0, tk.END) for entry in row] for row in entries])
-    solve_button = tk.Button(window, text="Invalid Puzzle", font=('Arial', 18), width=6, state=tk.DISABLED, command=lambda: handle_puzzle([[entry.get() or "0" for entry in row] for row in entries], entries=entries))
-    quit_button = tk.Button(window, text="Quit", font=('Arial', 18), width=6, command=window.destroy)
-    
-    clear_button.grid(row=10, column=0, columnspan=3, sticky='NSEW')
-    solve_button.grid(row=10, column=3, columnspan=3, sticky='NSEW')
-    quit_button.grid(row=10, column=6, columnspan=3, sticky='NSEW')
+    clear_button.grid(row=10, column=0, columnspan=3, sticky='NSEW', padx=5)
+    solve_button.grid(row=10, column=3, columnspan=3, sticky='NSEW', padx=5)
+    quit_button.grid(row=10, column=6, columnspan=3, sticky='NSEW', padx=5)
 
     for row in entries:
         for entry in row:
