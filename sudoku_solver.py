@@ -22,7 +22,6 @@ def get_gui_input():
         window.grid_rowconfigure(i, weight=1)
         window.grid_columnconfigure(i, weight=1)
 
-    entry_size = 50
     entry_padding = 3
     canvas_height = 478
     canvas_width = 560
